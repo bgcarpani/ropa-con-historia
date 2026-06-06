@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  PROVEEDOR
+}
+
+enum ProductState {
+  EN_VENTA
+  VENDIDO
+  PAGADO
+  DEVUELTO
+  CANCELADO
+}
+
+enum AppointmentType {
+  DROP_OFF
+  COLLECTION
+}
+
+enum AppointmentState {
+  PENDIENTE
+  CONFIRMADO
+  COMPLETADO
+  CANCELADO
+}
+
+enum TransactionType {
+  CREDIT
+  CASH
+}
+
+enum TransactionState {
+  PENDIENTE
+  COBRADO
+  USADO
+}
+
+enum ReturnState {
+  PENDIENTE
+  APROBADA
+  RECHAZADA
+}
+
+model User {
+  id               String   @id @default(cuid())
+  name             String
+  email            String   @unique
+  passwordHash     String
+  role             Role     @default(PROVEEDOR)
+  phone            String?
+  creditPercentage Float    @default(60)
+  cashPercentage   Float    @default(40)
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+
+  products            Product[]
+  appointments        Appointment[]
+  balanceTransactions BalanceTransaction[]
+  returnRequests      ReturnRequest[]
+  adminSales          Sale[]              @relation("AdminSales")
+}
+
+model Product {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  category    String?
+  price       Float
+  state       ProductState @default(EN_VENTA)
+  supplierId  String
+  saleId      String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  supplier            User                 @relation(fields: [supplierId], references: [id])
+  sale                Sale?                @relation(fields: [saleId], references: [id])
+  balanceTransactions BalanceTransaction[]
+  returnRequest       ReturnRequest?
+}
+
+model Appointment {
+  id          String           @id @default(cuid())
+  supplierId  String
+  type        AppointmentType
+  state       AppointmentState @default(PENDIENTE)
+  scheduledAt DateTime
+  notes       String?
+  createdAt   DateTime         @default(now())
+
+  supplier User @relation(fields: [supplierId], references: [id])
+}
+
+model Sale {
+  id        String   @id @default(cuid())
+  adminId   String
+  createdAt DateTime @default(now())
+
+  admin    User      @relation("AdminSales", fields: [adminId], references: [id])
+  products Product[]
+}
+
+model BalanceTransaction {
+  id         String           @id @default(cuid())
+  supplierId String
+  amount     Float
+  type       TransactionType
+  state      TransactionState @default(PENDIENTE)
+  productId  String?
+  note       String?
+  createdAt  DateTime         @default(now())
+
+  supplier User     @relation(fields: [supplierId], references: [id])
+  product  Product? @relation(fields: [productId], references: [id])
+}
+
+model ReturnRequest {
+  id         String      @id @default(cuid())
+  supplierId String
+  productId  String      @unique
+  state      ReturnState @default(PENDIENTE)
+  reason     String
+  adminNote  String?
+  createdAt  DateTime    @default(now())
+
+  supplier User    @relation(fields: [supplierId], references: [id])
+  product  Product @relation(fields: [productId], references: [id])
+}
