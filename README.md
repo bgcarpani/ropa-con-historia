@@ -31,8 +31,8 @@
 
 ```
 ropa-con-historia/
-├── backend/     # NestJS REST API (port 3001)
-└── frontend/    # React + Vite SPA (port 5173)
+├── backend/     # NestJS REST API
+└── frontend/    # React + Vite SPA 
 ```
 
 ## Getting Started
@@ -52,7 +52,7 @@ npx prisma migrate dev
 npm run start:dev
 ```
 
-API available at `http://localhost:3001/api/v1`
+API available at
 
 ### Frontend
 
@@ -63,7 +63,7 @@ npm install
 npm run dev
 ```
 
-App available at `http://localhost:5173`
+App available at 
 
 ## Key Features
 
