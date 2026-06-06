@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/Logo RCH sin fondo-09.png';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -26,11 +27,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="min-h-screen bg-terciary flex items-center justify-center">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 w-full max-w-sm">
-        <div className="text-center mb-6">
-          <h1 className="text-xl font-bold text-gray-900">Ropa con Historia</h1>
-          <p className="text-sm text-gray-500 mt-1">Ingresá a tu cuenta</p>
+        <div className="flex flex-col items-center mb-6">
+          <img src={logo} alt="Ropa con Historia" className="h-24 w-auto mb-4" />
+          <p className="text-sm text-gray-500">Ingresá a tu cuenta</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -40,7 +41,7 @@ export default function LoginPage() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="tu@email.com"
             />
           </div>
@@ -51,7 +52,7 @@ export default function LoginPage() {
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="••••••••"
             />
           </div>
@@ -59,7 +60,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white rounded-lg px-4 py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="w-full bg-primary text-white rounded-lg px-4 py-2 text-sm font-medium hover:bg-primary-hover disabled:opacity-50 transition-colors"
           >
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>

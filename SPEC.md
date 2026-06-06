@@ -270,6 +270,38 @@ PATCH  /returns/:id/state          (admin only)
 
 ---
 
+## Design & Branding
+
+### Logo
+
+The official logo is located at `frontend/src/assets/Logo RCH sin fondo-09.png`. It must be displayed on the login page.
+
+### Color Palette
+
+All UI components must use these CSS custom properties:
+
+```css
+:root {
+  --primary-color: #008081;
+  --primary-hover-color: #005d5d;
+  --secondary-color: #8E8F32;
+  --secondary-hover-color: #676924;
+  --terciary-color: #E5E3CA;
+  --terciary-hover-color: #cac8b2;
+}
+```
+
+| Variable                  | Hex       | Usage                              |
+|---------------------------|-----------|------------------------------------|
+| `--primary-color`         | `#008081` | Primary actions, buttons, links    |
+| `--primary-hover-color`   | `#005d5d` | Hover state for primary elements   |
+| `--secondary-color`       | `#8E8F32` | Secondary actions and accents      |
+| `--secondary-hover-color` | `#676924` | Hover state for secondary elements |
+| `--terciary-color`        | `#E5E3CA` | Backgrounds, cards, subtle fills   |
+| `--terciary-hover-color`  | `#cac8b2` | Hover state for tertiary elements  |
+
+---
+
 ## Frontend Pages
 
 ### Shared
